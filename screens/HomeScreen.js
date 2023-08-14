@@ -1,30 +1,54 @@
 import { useNavigation } from '@react-navigation/core'
 import React from 'react'
+import { useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import * as ImagePicker from 'expo-image-picker';
 import { auth } from '../firebase'
+import Button from '../components/Button';
+import ImageViewer from '../components/ImageViewer';
 
-const HomeScreen = () => {
-  const navigation = useNavigation()
+const PlaceholderImage = require('../assets/demo/demo.png');
 
-  const handleSignOut = () => {
+const HomeScreen = ({ navigation }) => {
+  // const navigation = useNavigation()
+
+  const handleSignOut = (navigation) => {
     auth
       .signOut()
       .then(() => {
-        navigation.replace("Login")
+        console.log('user logged out')
+        navigation.navigate("Login")
       })
       .catch(error => alert(error.message))
   }
 
+  const [selectedImage, setSelectedImage] = useState(null);
+
+  const pickImageAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({
+      allowsEditing: true,
+      quality: 1,
+    });
+
+    if (!result.canceled) {
+      setSelectedImage(result.assets[0].uri);
+    } else {
+      alert('You did not select any image.');
+    }
+  };
+
   return (
     <View style={styles.container}>
-      <Text>Email: {auth.currentUser?.email}</Text>
-      <Text>UID: {auth.currentUser?.uid}</Text>
-      <TouchableOpacity
-        onPress={handleSignOut}
-        style={styles.button}
-      >
-        <Text style={styles.buttonText}>Sign out</Text>
-      </TouchableOpacity>
+      <View style={styles.imageContainer}>
+        <ImageViewer 
+          placeholderImageSource={PlaceholderImage} 
+          selectedImage={selectedImage}
+        />
+      </View>
+      <View style={styles.footerContainer}>
+        <Button theme="primary" label="Choose a portrait" onPress={pickImageAsync} />
+        <Button label="Choose a hairstyle" onPress={() => navigation.navigate('Hairstyles')}/>
+      </View>
     </View>
   )
 }
@@ -34,20 +58,15 @@ export default HomeScreen
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-   button: {
-    backgroundColor: '#0782F9',
-    width: '60%',
-    padding: 15,
-    borderRadius: 10,
+    backgroundColor: '#25292e',
     alignItems: 'center',
-    marginTop: 40,
   },
-  buttonText: {
-    color: 'white',
-    fontWeight: '700',
-    fontSize: 16,
+  imageContainer: {
+    flex: 1,
+    paddingTop: 30,
+  },
+  footerContainer: {
+    flex: 1/3,
+    alignItems: 'center',
   },
 })

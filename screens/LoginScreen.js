@@ -4,17 +4,17 @@ import { KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, Vi
 import { auth } from '../firebase'
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from "firebase/auth";
 
-const LoginScreen = () => {
+const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const navigation = useNavigation()
+  // const navigation = useNavigation()
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
-      if (user) {
-        navigation.replace("Home")
-      }
+      // if (user) {
+      //   navigation.replace("Home")
+      // }
     })
 
     return unsubscribe
@@ -25,6 +25,7 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Registered with:', user.email);
+        navigation.navigate("Home");
       })
       .catch(error => alert(error.message))
   }
@@ -34,6 +35,8 @@ const LoginScreen = () => {
       .then(userCredentials => {
         const user = userCredentials.user;
         console.log('Logged in with:', user.email);
+        // navigation.navigate("Hairstyles");
+        navigation.navigate("Home");
       })
       .catch(error => alert(error.message))
   }
