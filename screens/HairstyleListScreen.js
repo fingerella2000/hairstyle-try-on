@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   image: {
-    width: Dimensions.get('window').width / 2 - 20,
+    width: Dimensions.get('window').width / 2 - 10,
     height: 200,
     margin: 5,
   },

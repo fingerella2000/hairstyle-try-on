@@ -1,5 +1,4 @@
-import { useNavigation } from '@react-navigation/core'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 import { auth } from '../firebase'
 import Button from '../components/Button';
@@ -45,7 +44,7 @@ const HomeScreen = ({ navigation }) => {
       })
       .catch(error => alert(error.message));
     } else {
-      alert('You did not select any image.');
+      console.log('You did not select any image.');
     }
   };
 
