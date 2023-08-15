@@ -1,22 +1,23 @@
 import { StatusBar } from 'expo-status-bar';
-import { useNavigation } from '@react-navigation/core'
-import React, { useState, useEffect } from 'react';
+import { useNavigation } from '@react-navigation/core';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createStackNavigator } from '@react-navigation/stack';
 import * as MediaLibrary from 'expo-media-library';
 import LoginScreen from './screens/LoginScreen';
 import HomeScreen from './screens/HomeScreen';
 import HairstyleListScreen from './screens/HairstyleListScreen';
 import ResultScreen from './screens/ResultScreen';
 import 'react-native-gesture-handler';
-import { auth } from './firebase'
+import { auth } from './firebase';
 import { onAuthStateChanged } from "firebase/auth";
+import { AuthenticatedUserProvider } from './screens/AuthenticatedUserProvider';
+import { RootNavigator } from './screens/RootNavigator';
+import Routes from './screens/index';
 
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 export default function App() {
-
   // ask user's consent for accessing phtotos
   const [status, requestPermission] = MediaLibrary.usePermissions();
   
@@ -40,14 +41,15 @@ export default function App() {
   });
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
-        <Stack.Screen name="Home" component={HomeScreen} />
-        <Stack.Screen name="Hairstyles" component={HairstyleListScreen} />
-        <Stack.Screen name="Result" component={ResultScreen} />
-      </Stack.Navigator>
-    </NavigationContainer>
+    // <NavigationContainer>
+    //   <Stack.Navigator>
+    //     <Stack.Screen options={{ headerShown: false }} name="Login" component={LoginScreen} />
+    //     <Stack.Screen name="Home" component={HomeScreen} />
+    //     <Stack.Screen name="Hairstyles" component={HairstyleListScreen} />
+    //     <Stack.Screen name="Result" component={ResultScreen} />
+    //   </Stack.Navigator>
+    // </NavigationContainer>
+    <Routes />
   );
 }
 

@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/core'
 import React, { useEffect, useState } from 'react'
-import { FlatList, Image, Text, View, StyleSheet, Dimensions, Pressable } from 'react-native'
+import { Image, Text, View, StyleSheet, Pressable } from 'react-native'
 
 
 const ResultScreen = ({ navigation }) => {

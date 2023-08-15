@@ -8,24 +8,11 @@ const LoginScreen = ({ navigation }) => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  // const navigation = useNavigation()
-
-  useEffect(() => {
-    const unsubscribe = auth.onAuthStateChanged(user => {
-      // if (user) {
-      //   navigation.replace("Home")
-      // }
-    })
-
-    return unsubscribe
-  }, [])
-
   const handleSignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Registered with:', user.email);
-        navigation.navigate("Home");
+        console.log('Registered user:', JSON.stringify(user));
       })
       .catch(error => alert(error.message))
   }
@@ -34,11 +21,9 @@ const LoginScreen = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Logged in with:', user.email);
-        // navigation.navigate("Hairstyles");
-        navigation.navigate("Home");
+        console.log('Login user:', JSON.stringify(user));
       })
-      .catch(error => alert(error.message))
+      .catch(error => alert(error.message))    
   }
 
   return (
