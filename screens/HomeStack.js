@@ -10,8 +10,8 @@ export default function HomeStack() {
   return (
     <Stack.Navigator>
       <Stack.Screen name='Home' component={HomeScreen} />
-      <Stack.Screen name="Hairstyles" component={HairstyleListScreen} />
-      <Stack.Screen name="Result" component={ResultScreen} />
+      <Stack.Screen name="Hairstyles" options={{ title: 'Hairstyle Models' }} component={HairstyleListScreen} />
+      <Stack.Screen name="Result" options={{ title: 'My Gallery' }} component={ResultScreen} />
     </Stack.Navigator>
   );
 }

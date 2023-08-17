@@ -167,7 +167,7 @@ export const uploadReference = async (access_token, file_path, user_id) => {
 
 export const blendHair = async (access_token, user_id) => {
   const requestUri = `https://barbershop-batch.ukwest.inference.ml.azure.com/jobs`;
-  let payload = {
+  const payload = {
     "properties": {
         "InputData": {
             "original_hair": {
@@ -192,6 +192,22 @@ export const blendHair = async (access_token, user_id) => {
     }).then(data => {
       // Process the JSON data from the response body
       // console.log('job name:', data.name);
+    }).catch(error => {
+      console.error(error);
+  });
+}
+
+export const getJobStatus = async (access_token, batch_job_name) => {
+  const requestUri = `https://ml.azure.com/api/ukwest/history/v1.0/subscriptions/a1266c53-9bc0-48f4-8b55-6cb3829bb713/resourceGroups/fingerella2000-rg/providers/Microsoft.MachineLearningServices/workspaces/ml-workspace-uk/runs/${batch_job_name}`;
+  
+  // send request to azure ml workspace to get hair blending job status
+  return fetch(requestUri).then(response => {
+      // console.log('response is:' + JSON.stringify(response));
+      return response.json();
+    }).then(data => {
+      // Process the JSON data from the response body
+      console.log('job status:', data.status);
+      return data.status;
     }).catch(error => {
       console.error(error);
   });

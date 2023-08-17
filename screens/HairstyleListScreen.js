@@ -23,11 +23,10 @@ const HairstyleListScreen = ({ navigation }) => {
       // upload selected hairstyle to azure ml workspace
       getAccessToken('storage').then(response => {
         uploadReference(response.access_token, localUri[0].localUri, user_id).then(response => {
-          console.log(response);
-
+          // console.log(response);
           getAccessToken('ml').then(response => {
             blendHair(response.access_token, user_id).then(response => {
-              console.log(response);
+              // console.log(response);
               navigation.navigate('Result');
             }).catch(error => alert(error.message))
           }).catch(error => alert(error.message));

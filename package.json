@@ -27,7 +27,8 @@
     "react-native-screens": "~3.22.0",
     "react-native-view-shot": "3.7.0",
     "react-native-web": "~0.19.6",
-    "expo-asset": "~8.10.1"
+    "expo-asset": "~8.10.1",
+    "expo-notifications": "~0.20.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
