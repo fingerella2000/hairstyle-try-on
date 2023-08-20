@@ -5,7 +5,17 @@ import Button from '../components/Button';
 import ImageViewer from '../components/ImageViewer';
 import { getAccessToken, uploadIdentity } from '../mlrequest';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState, useRef } from 'react';import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
+import Constants from "expo-constants";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: false,
+  }),
+});
 
 const PlaceholderImage = require('../assets/demo/demo.png');
 
@@ -47,6 +57,29 @@ const HomeScreen = ({ navigation }) => {
       console.log('You did not select any image.');
     }
   };
+
+  // handled push notification
+  const [notification, setNotification] = useState(false);
+  const notificationListener = useRef();
+  const responseListener = useRef();
+
+  useEffect(() => {
+    notificationListener.current = Notifications.addNotificationReceivedListener(notification => {
+      setNotification(notification);
+    });
+
+    responseListener.current = Notifications.addNotificationResponseReceivedListener(response => {
+      Notifications.setBadgeCountAsync(0); // Set badge number to 0
+      const reqData = response.notification.request.content.data;
+      // Navigate to the desired screen
+      navigation.navigate(reqData.screen);
+    });
+
+    return () => {
+      Notifications.removeNotificationSubscription(notificationListener.current);
+      Notifications.removeNotificationSubscription(responseListener.current);
+    };
+  }, []);
 
   return (
     <View style={styles.container}>

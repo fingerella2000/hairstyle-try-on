@@ -1,5 +1,10 @@
 export const images_hairstyle = [
   {
+    id: 0,
+    uri: require('./assets/hairstyles/0.png'),
+    path: './assets/hairstyles/0.png',
+  },
+  {
     id: 1,
     uri: require('./assets/hairstyles/1.png'),
     path: './assets/hairstyles/1.png',
@@ -25,6 +30,11 @@ export const images_hairstyle = [
     path: './assets/hairstyles/5.png',
   },
   {
+    id: 6,
+    uri: require('./assets/hairstyles/6.png'),
+    path: './assets/hairstyles/6.png',
+  },
+  {
     id: 7,
     uri: require('./assets/hairstyles/7.png'),
     path: './assets/hairstyles/7.png',
@@ -33,6 +43,11 @@ export const images_hairstyle = [
     id: 8,
     uri: require('./assets/hairstyles/8.png'),
     path: './assets/hairstyles/8.png',
+  },
+  {
+    id: 9,
+    uri: require('./assets/hairstyles/9.png'),
+    path: './assets/hairstyles/9.png',
   },
   {
     id: 10,
@@ -60,6 +75,16 @@ export const images_hairstyle = [
     path: './assets/hairstyles/14.png',
   },
   {
+    id: 15,
+    uri: require('./assets/hairstyles/15.png'),
+    path: './assets/hairstyles/15.png',
+  },
+  {
+    id: 16,
+    uri: require('./assets/hairstyles/16.png'),
+    path: './assets/hairstyles/16.png',
+  },
+  {
     id: 17,
     uri: require('./assets/hairstyles/17.png'),
     path: './assets/hairstyles/17.png',
@@ -70,14 +95,54 @@ export const images_hairstyle = [
     path: './assets/hairstyles/18.png',
   },
   {
+    id: 19,
+    uri: require('./assets/hairstyles/19.png'),
+    path: './assets/hairstyles/19.png',
+  },
+  {
     id: 20,
     uri: require('./assets/hairstyles/20.png'),
     path: './assets/hairstyles/20.png',
   },
   {
+    id: 21,
+    uri: require('./assets/hairstyles/21.png'),
+    path: './assets/hairstyles/21.png',
+  },
+  {
+    id: 22,
+    uri: require('./assets/hairstyles/22.png'),
+    path: './assets/hairstyles/22.png',
+  },
+  {
     id: 23,
     uri: require('./assets/hairstyles/23.png'),
     path: './assets/hairstyles/23.png',
+  },
+  {
+    id: 24,
+    uri: require('./assets/hairstyles/24.png'),
+    path: './assets/hairstyles/24.png',
+  },
+  {
+    id: 25,
+    uri: require('./assets/hairstyles/25.png'),
+    path: './assets/hairstyles/25.png',
+  },
+  {
+    id: 26,
+    uri: require('./assets/hairstyles/26.png'),
+    path: './assets/hairstyles/26.png',
+  },
+  {
+    id: 27,
+    uri: require('./assets/hairstyles/27.png'),
+    path: './assets/hairstyles/27.png',
+  },
+  {
+    id: 28,
+    uri: require('./assets/hairstyles/28.png'),
+    path: './assets/hairstyles/28.png',
   },
   {
     id: 29,
@@ -88,6 +153,11 @@ export const images_hairstyle = [
     id: 30,
     uri: require('./assets/hairstyles/30.png'),
     path: './assets/hairstyles/30.png',
+  },
+  {
+    id: 31,
+    uri: require('./assets/hairstyles/31.png'),
+    path: './assets/hairstyles/31.png',
   },
   {
     id: 32,
@@ -128,75 +198,5 @@ export const images_hairstyle = [
     id: 39,
     uri: require('./assets/hairstyles/39.png'),
     path: './assets/hairstyles/39.png',
-  },
-  {
-    id: 40,
-    uri: require('./assets/hairstyles/40.png'),
-    path: './assets/hairstyles/40.png',
-  },
-  {
-    id: 41,
-    uri: require('./assets/hairstyles/41.png'),
-    path: './assets/hairstyles/41.png',
-  },
-  {
-    id: 42,
-    uri: require('./assets/hairstyles/42.png'),
-    path: './assets/hairstyles/42.png',
-  },
-  {
-    id: 43,
-    uri: require('./assets/hairstyles/43.png'),
-    path: './assets/hairstyles/43.png',
-  },
-  {
-    id: 49,
-    uri: require('./assets/hairstyles/49.png'),
-    path: './assets/hairstyles/49.png',
-  },
-  {
-    id: 52,
-    uri: require('./assets/hairstyles/52.png'),
-    path: './assets/hairstyles/52.png',
-  },
-  {
-    id: 60,
-    uri: require('./assets/hairstyles/60.png'),
-    path: './assets/hairstyles/60.png',
-  },
-  {
-    id: 63,
-    uri: require('./assets/hairstyles/63.png'),
-    path: './assets/hairstyles/63.png',
-  },
-  {
-    id: 66,
-    uri: require('./assets/hairstyles/66.png'),
-    path: './assets/hairstyles/66.png',
-  },
-  {
-    id: 69,
-    uri: require('./assets/hairstyles/69.png'),
-    path: './assets/hairstyles/69.png',
-  },
-  {
-    id: 71,
-    uri: require('./assets/hairstyles/71.png'),
-    path: './assets/hairstyles/71.png',
-  },
-  {
-    id: 75,
-    uri: require('./assets/hairstyles/75.png'),
-    path: './assets/hairstyles/75.png',
-  },
-  {
-    id: 78,
-    uri: require('./assets/hairstyles/78.png'),
-    path: './assets/hairstyles/78.png',
-  },
-  {
-    id: 87,
-    uri: require('./assets/hairstyles/87.png'),
-    path: './assets/hairstyles/87.png',
   },
 ];

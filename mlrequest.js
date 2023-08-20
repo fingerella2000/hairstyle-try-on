@@ -191,24 +191,31 @@ export const blendHair = async (access_token, user_id) => {
       return response.json();
     }).then(data => {
       // Process the JSON data from the response body
-      // console.log('job name:', data.name);
+      console.log('job name:', data.name);
+      return data;
     }).catch(error => {
       console.error(error);
   });
 }
 
-export const getJobStatus = async (access_token, batch_job_name) => {
-  const requestUri = `https://ml.azure.com/api/ukwest/history/v1.0/subscriptions/a1266c53-9bc0-48f4-8b55-6cb3829bb713/resourceGroups/fingerella2000-rg/providers/Microsoft.MachineLearningServices/workspaces/ml-workspace-uk/runs/${batch_job_name}`;
+export const sendPushNotification = async (push_token, job_name) => {
+  const requestUri = 'http://ubuntu1804.westus2.cloudapp.azure.com:3000/send-notification';
+
+  const payload = {
+    "pushToken": [push_token],
+    "jobName": job_name,
+  };
   
   // send request to azure ml workspace to get hair blending job status
-  return fetch(requestUri).then(response => {
-      // console.log('response is:' + JSON.stringify(response));
-      return response.json();
-    }).then(data => {
-      // Process the JSON data from the response body
-      console.log('job status:', data.status);
-      return data.status;
-    }).catch(error => {
-      console.error(error);
-  });
+  return fetch(requestUri, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  }).then(response => {
+    console.log('response is:' + JSON.stringify(response));
+  }).catch(error => {
+    console.error(error);
+});
 }

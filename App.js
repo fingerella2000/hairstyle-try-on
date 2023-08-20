@@ -1,5 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { StyleSheet } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import * as MediaLibrary from 'expo-media-library';
@@ -9,10 +9,11 @@ import Routes from './screens/index';
 const Stack = createStackNavigator();
 
 export default function App() {
-  // ask user's consent for accessing phtotos
-  const [status, requestPermission] = MediaLibrary.usePermissions();
   
-  if (status === null) {
+  // ask user's consent for accessing phtotos
+  const [statusMediaPerm, requestPermission] = MediaLibrary.usePermissions();
+
+  if (statusMediaPerm === null) {
     requestPermission();
   }
 

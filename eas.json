@@ -1,0 +1,37 @@
+{
+  "cli": {
+    "version": ">= 3.5.2"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "env": {
+        "API_KEY": "AIzaSyDM9WKi9aY-SQhkgTpAZCPkavpvJAoOOvc",
+        "APP_ID": "1:926616024103:web:321b243c9119174aa30a02",
+        "CLIENT_ID": "7b7950dc-b0c5-4587-b1a4-2595dde4a46e",
+        "CLIENT_SECRET": "E-X8Q~ze8OSKIwt-KlsRshHxhPLCHhdiyl.hKa5G"
+      },
+      "channel": "development"
+    },
+    "preview": {
+      "distribution": "internal",
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "channel": "preview"
+    },
+    "production": {
+      "ios": {
+        "resourceClass": "m1-medium"
+      },
+      "channel": "production"
+    }
+  },
+  "submit": {
+    "production": {}
+  }
+}

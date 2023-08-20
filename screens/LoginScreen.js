@@ -11,7 +11,7 @@ const LoginScreen = ({ navigation }) => {
     createUserWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Registered user:', JSON.stringify(user));
+        console.log('Registered user:', user.email);
       })
       .catch(error => alert(error.message))
   }
@@ -20,7 +20,7 @@ const LoginScreen = ({ navigation }) => {
     signInWithEmailAndPassword(auth, email, password)
       .then(userCredentials => {
         const user = userCredentials.user;
-        console.log('Login user:', JSON.stringify(user));
+        console.log('Login user:', user.email);
       })
       .catch(error => alert(error.message))    
   }

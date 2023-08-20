@@ -1,47 +1,39 @@
 import React, { useContext, useEffect, useState } from 'react';
-import { Image, Text, View, StyleSheet, Pressable } from 'react-native';
+import { Image, Text, View, StyleSheet, Pressable, ActivityIndicator } from 'react-native';
 import { AuthenticatedUserContext } from './AuthenticatedUserProvider';
-import Button from '../components/Button';
 
 
 const ResultScreen = ({ navigation }) => {
   const { user } = useContext(AuthenticatedUserContext);
   
   const user_id = user.uid;
-  const imageUri = `https://mlworkspaceuk2288885558.blob.core.windows.net/azureml-blobstore-eb877bd2-e86d-4fcd-9cc8-4dde86e73c5c/LocalUpload/output/${user_id}/id_ref_ref_fidelity.png`;
-  const [imageExists, setImageExists] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+  const [imageSource, setImageSource] = useState(`https://mlworkspaceuk2288885558.blob.core.windows.net/azureml-blobstore-eb877bd2-e86d-4fcd-9cc8-4dde86e73c5c/LocalUpload/output/${user_id}/id_ref_ref_fidelity.png`);
 
-  useEffect(() => {
-    // Fetch the image and check for errors
-    const checkImageExists = async () => {
-      try {
-        const response = await fetch(imageUri);
-        if (response.ok) {
-          setImageExists(true);
-        }
-      } catch (error) {
-        setImageExists(false);
-      }
-    };
+  const checkImageExists = async () => {
+    Image.getSize(imageSource, (width, height) => {
+      // console.log(`width: ${width}, height: ${height}`);
+      setIsLoading(false);
+    }, failure => {
+      // console.log('error getting size');
+      setIsLoading(false);
+      setImageSource(null); // Set image source to null if it doesn't exist
+    });
+  };
 
-    checkImageExists();
-  }, []);
-
-  const goHomepage = (navigation) => {
-    navigation.navigate('Home');
-  }
+  checkImageExists();
 
   return (
     <View style={styles.container}>
-      {imageExists ? (
+      {isLoading && imageSource ? (
+        <ActivityIndicator size="large" color="blue" />
+      ) : imageSource ? (
         <Image
+          source={{ uri: imageSource }}
           style={styles.image}
-          source={{ uri: imageUri }}
         />
       ) : (
-        <Text style={styles.text}>
-          Due to limited resource, your request may be handled in delay, we are working hard to generated your new hairstyle, please check your gallery later.
-        </Text>
+        <Text style={styles.text}>Due to limited resource, your request may be handled in delay, we are working hard to generated your new hairstyle, please check your gallery later.</Text>
       )}
     </View>
   );
