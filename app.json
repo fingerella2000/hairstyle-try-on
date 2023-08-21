@@ -11,6 +11,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
+    "updates": {
+      "useClassicUpdates": true
+    },
     "assetBundlePatterns": [
       "**/*"
     ],
@@ -33,12 +36,6 @@
         "projectId": "74bbf5a0-3456-41c7-8611-a7e5dff11712"
       }
     },
-    "owner": "fingerella",
-    "runtimeVersion": {
-      "policy": "sdkVersion"
-    },
-    "updates": {
-      "url": "https://u.expo.dev/74bbf5a0-3456-41c7-8611-a7e5dff11712"
-    }
+    "owner": "fingerella"
   }
 }

@@ -66,7 +66,6 @@ const HairstyleListScreen = ({ navigation }) => {
             blendHair(response.access_token, user_id).then(response => {
               // the blendHair will return the ml job name
               const jobName = response.name;
-              // console.log(response.name);
               // sendingthe job name together with pushToken to express server
               // let server check the job status routinely and then then push notification to client when the job is done
               registerForPushNotificationsAsync().then(pushToken => {
