@@ -217,5 +217,5 @@ export const sendPushNotification = async (push_token, job_name) => {
     console.log('response is:' + JSON.stringify(response));
   }).catch(error => {
     console.error(error);
-});
+  });
 }
