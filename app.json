@@ -2,7 +2,7 @@
   "expo": {
     "name": "hairstyle-try-on",
     "slug": "hairstyle-try-on",
-    "version": "1.0.0",
+    "version": "1.0.7",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -22,6 +22,7 @@
       "bundleIdentifier": "com.fingerella.hairstyletryon"
     },
     "android": {
+      "versionCode": 7,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"

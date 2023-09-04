@@ -59,107 +59,133 @@ export const getAccessToken = async (serviceType) => {
   }
 };
 
+export function uriToBlob(uri) {
+  return new Promise((resolve, reject) => {
+    const xhr = new XMLHttpRequest();
+    xhr.onload = function () {
+      resolve(xhr.response);
+    };
+    xhr.onerror = function () {
+      reject(new Error('uriToBlob failed'));
+    };
+    xhr.responseType = 'blob';
+    xhr.open('GET', uri, true);
+    xhr.send(null);
+  });
+}
+
 export const uploadIdentity = async (access_token, file_path, user_id) => {
-  return fetch(file_path) // read file
-  .then(response => response.arrayBuffer())
+  // return fetch(file_path) // read file
+  // .then(response => response.arrayBuffer())
+  return uriToBlob(file_path)
   .then(buffer => {
-    const uintArray = new Uint8Array(buffer); // get file content as binary
-    const headerBytes = uintArray.subarray(0, 4);
-    let fileType = 'N/A';
-    let fileExt = 'N/A';
-    
-    if (headerBytes[0] === 0xFF && headerBytes[1] === 0xD8) {
-      fileType = 'image/jpeg';
-      fileExt = 'jpg';
-    }
-    if (headerBytes[0] === 0x89 && headerBytes[1] === 0x50 && headerBytes[2] === 0x4E && headerBytes[3] === 0x47) {
-      fileType = 'image/png';
-      fileExt = 'png';
-    }
-    if (headerBytes[0] === 0x47 && headerBytes[1] === 0x49 && headerBytes[2] === 0x46) {
-      fileType = 'image/gif';
-      fileExt = 'gif';
-    }
-    if (headerBytes[0] === 0x42 && headerBytes[1] === 0x4D) {
-      fileType = 'image/bmp';
-      fileExt = 'bmp';
-    }
+    const reader = new FileReader();
+    reader.onload = function () {
+      const arrayBuffer = reader.result; // Binary data as ArrayBuffer
+      const uintArray = new Uint8Array(arrayBuffer);
+      const headerBytes = uintArray.subarray(0, 4);
+      let fileType = 'N/A';
+      let fileExt = 'N/A';
+      
+      if (headerBytes[0] === 0xFF && headerBytes[1] === 0xD8) {
+        fileType = 'image/jpeg';
+        fileExt = 'jpg';
+      }
+      if (headerBytes[0] === 0x89 && headerBytes[1] === 0x50 && headerBytes[2] === 0x4E && headerBytes[3] === 0x47) {
+        fileType = 'image/png';
+        fileExt = 'png';
+      }
+      if (headerBytes[0] === 0x47 && headerBytes[1] === 0x49 && headerBytes[2] === 0x46) {
+        fileType = 'image/gif';
+        fileExt = 'gif';
+      }
+      if (headerBytes[0] === 0x42 && headerBytes[1] === 0x4D) {
+        fileType = 'image/bmp';
+        fileExt = 'bmp';
+      }
 
-    if (fileType == 'N/A') {
-      console.log("The file is not an image.");
-    } else {
-      console.log(`The file type is ${fileType}.`);
+      if (fileType == 'N/A') {
+        console.log("The file is not an image.");
+      } else {
+        console.log(`The file type is ${fileType}.`);
 
-      const requestUri = `https://mlworkspaceuk2288885558.blob.core.windows.net/azureml-blobstore-eb877bd2-e86d-4fcd-9cc8-4dde86e73c5c/LocalUpload/input-face/${user_id}/${user_id}/identity/id.${fileExt}`;
-      // upload image to azure ml workspace
-      fetch(requestUri, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': fileType,
-            Authorization: `Bearer ${access_token}`,
-            'x-ms-version': '2017-11-09',
-            'x-ms-blob-type': 'BlockBlob',
-          },
-          body: uintArray,
-        }).then((response) => {
-          // console.log('response is:' + JSON.stringify(response));
-        }).catch((error) => {
-          console.error(error);
-      });
-    }
+        const requestUri = `https://mlworkspaceuk2288885558.blob.core.windows.net/azureml-blobstore-eb877bd2-e86d-4fcd-9cc8-4dde86e73c5c/LocalUpload/input-face/${user_id}/${user_id}/identity/id.${fileExt}`;
+        // upload image to azure ml workspace
+        fetch(requestUri, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': fileType,
+              Authorization: `Bearer ${access_token}`,
+              'x-ms-version': '2017-11-09',
+              'x-ms-blob-type': 'BlockBlob',
+            },
+            body: uintArray,
+          }).then((response) => {
+            // console.log('response is:' + JSON.stringify(response));
+          }).catch((error) => {
+            console.error(error);
+        });
+      }
+    };
+    reader.readAsArrayBuffer(buffer);
   }).catch(error => {
     console.error("Error reading the file:", error);
   });
 }
 
 export const uploadReference = async (access_token, file_path, user_id) => {
-  return fetch(file_path) // read file
-  .then(response => response.arrayBuffer())
+  // return fetch(file_path) // read file
+  // .then(response => response.arrayBuffer())
+  return uriToBlob(file_path)
   .then(buffer => {
-    const uintArray = new Uint8Array(buffer); // get file content as binary
-    const headerBytes = uintArray.subarray(0, 4);
-    let fileType = 'N/A';
-    let fileExt = 'N/A';
-    
-    if (headerBytes[0] === 0xFF && headerBytes[1] === 0xD8) {
-      fileType = 'image/jpeg';
-      fileExt = 'jpg';
-    }
-    if (headerBytes[0] === 0x89 && headerBytes[1] === 0x50 && headerBytes[2] === 0x4E && headerBytes[3] === 0x47) {
-      fileType = 'image/png';
-      fileExt = 'png';
-    }
-    if (headerBytes[0] === 0x47 && headerBytes[1] === 0x49 && headerBytes[2] === 0x46) {
-      fileType = 'image/gif';
-      fileExt = 'gif';
-    }
-    if (headerBytes[0] === 0x42 && headerBytes[1] === 0x4D) {
-      fileType = 'image/bmp';
-      fileExt = 'bmp';
-    }
+    const reader = new FileReader();
+    reader.onload = function () {
+      const arrayBuffer = reader.result; // Binary data as ArrayBuffer
+      const uintArray = new Uint8Array(arrayBuffer);
+      const headerBytes = uintArray.subarray(0, 4);
+      let fileType = 'N/A';
+      let fileExt = 'N/A';
+      if (headerBytes[0] === 0xFF && headerBytes[1] === 0xD8) {
+        fileType = 'image/jpeg';
+        fileExt = 'jpg';
+      }
+      if (headerBytes[0] === 0x89 && headerBytes[1] === 0x50 && headerBytes[2] === 0x4E && headerBytes[3] === 0x47) {
+        fileType = 'image/png';
+        fileExt = 'png';
+      }
+      if (headerBytes[0] === 0x47 && headerBytes[1] === 0x49 && headerBytes[2] === 0x46) {
+        fileType = 'image/gif';
+        fileExt = 'gif';
+      }
+      if (headerBytes[0] === 0x42 && headerBytes[1] === 0x4D) {
+        fileType = 'image/bmp';
+        fileExt = 'bmp';
+      }
 
-    if (fileType == 'N/A') {
-      console.log("The file is not an image.");
-    } else {
-      console.log(`The file type is ${fileType}.`);
+      if (fileType == 'N/A') {
+        console.log("The file is not an image.");
+      } else {
+        console.log(`The file type is ${fileType}.`);
 
-      const requestUri = `https://mlworkspaceuk2288885558.blob.core.windows.net/azureml-blobstore-eb877bd2-e86d-4fcd-9cc8-4dde86e73c5c/LocalUpload/input-face/${user_id}/${user_id}/reference/ref.${fileExt}`;
-      // upload image to azure ml workspace
-      fetch(requestUri, {
-          method: 'PUT',
-          headers: {
-            'Content-Type': fileType,
-            Authorization: `Bearer ${access_token}`,
-            'x-ms-version': '2017-11-09',
-            'x-ms-blob-type': 'BlockBlob',
-          },
-          body: uintArray,
-        }).then((response) => {
-          // console.log('response is:' + JSON.stringify(response));
-        }).catch((error) => {
-          console.error(error);
-      });
-    }
+        const requestUri = `https://mlworkspaceuk2288885558.blob.core.windows.net/azureml-blobstore-eb877bd2-e86d-4fcd-9cc8-4dde86e73c5c/LocalUpload/input-face/${user_id}/${user_id}/reference/ref.${fileExt}`;
+        // upload image to azure ml workspace
+        fetch(requestUri, {
+            method: 'PUT',
+            headers: {
+              'Content-Type': fileType,
+              Authorization: `Bearer ${access_token}`,
+              'x-ms-version': '2017-11-09',
+              'x-ms-blob-type': 'BlockBlob',
+            },
+            body: uintArray,
+          }).then((response) => {
+            // console.log('response is:' + JSON.stringify(response));
+          }).catch((error) => {
+            console.error(error);
+        });
+      }
+    };
+    reader.readAsArrayBuffer(buffer);
   }).catch(error => {
     console.error("Error reading the file:", error);
   });
